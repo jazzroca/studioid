@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#15221a">
+<title>STUDIO ID Landscape Architecture — Mobile Concept</title>
+<style>
+  :root{
+    --ink:#121714;
+    --forest:#1b2d22;
+    --moss:#61705d;
+    --sage:#aab4a5;
+    --paper:#f2f0e9;
+    --warm:#d8d0c0;
+    --line:rgba(18,23,20,.16);
+    --white:#fff;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;background:var(--paper)}
+  body{
+    margin:0;color:var(--ink);background:var(--paper);
+    font-family:-apple-system,BlinkMacSystemFont,"Pretendard","Noto Sans KR","Segoe UI",sans-serif;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden
+  }
+  a{color:inherit;text-decoration:none}
+  button{font:inherit}
+  img{display:block;width:100%;height:100%;object-fit:cover}
+  .shell{max-width:1440px;margin:0 auto;background:var(--paper)}
+  .topbar{
+    position:fixed;z-index:40;top:0;left:0;right:0;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 18px calc(12px + env(safe-area-inset-top));
+    color:#fff;mix-blend-mode:difference;
+  }
+  .brand{font-weight:800;letter-spacing:-.03em;font-size:18px;line-height:1}
+  .brand small{display:block;font-size:8px;letter-spacing:.22em;font-weight:500;margin-top:6px}
+  .menu-btn{
+    width:44px;height:44px;border:0;border-radius:50%;background:rgba(255,255,255,.12);
+    backdrop-filter:blur(12px);display:grid;place-items:center;color:#fff
+  }
+  .menu-btn span,.menu-btn:before,.menu-btn:after{
+    content:"";display:block;width:18px;height:1px;background:currentColor;
+    transition:.35s ease;position:absolute
+  }
+  .menu-btn:before{transform:translateY(-5px)}
+  .menu-btn:after{transform:translateY(5px)}
+  .menu-btn.open span{opacity:0}
+  .menu-btn.open:before{transform:rotate(45deg)}
+  .menu-btn.open:after{transform:rotate(-45deg)}
+  .menu{
+    position:fixed;z-index:35;inset:0;background:#132018;color:#f7f5ef;
+    transform:translateY(-102%);transition:.5s cubic-bezier(.7,0,.2,1);
+    padding:110px 24px 34px;display:flex;flex-direction:column;justify-content:space-between
+  }
+  .menu.open{transform:none}
+  .menu nav a{display:block;font-size:clamp(38px,11vw,68px);letter-spacing:-.055em;line-height:1.05;margin:8px 0}
+  .menu .meta{display:grid;grid-template-columns:1fr 1fr;gap:20px;font-size:12px;color:#b8c0b9;line-height:1.6}
+  .hero{height:100svh;min-height:620px;position:relative;color:white;background:#19221a;overflow:hidden}
+  .hero-track{position:absolute;inset:0}
+  .hero-slide{position:absolute;inset:0;opacity:0;transform:scale(1.035);transition:opacity 1s ease,transform 5s ease}
+  .hero-slide.active{opacity:1;transform:scale(1)}
+  .hero-slide:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,16,10,.08),rgba(8,16,10,.18) 45%,rgba(8,16,10,.62))}
+  .hero-copy{position:absolute;z-index:2;left:18px;right:18px;bottom:34px}
+  .eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:15px;opacity:.85}
+  .hero h1{font-family:Georgia,"Times New Roman",serif;font-weight:400;letter-spacing:-.055em;font-size:clamp(44px,13vw,94px);line-height:.88;margin:0 0 24px}
+  .hero h1 em{font-weight:400}
+  .hero-foot{display:flex;align-items:end;justify-content:space-between;gap:16px}
+  .hero-foot p{margin:0;max-width:420px;font-size:13px;line-height:1.6}
+  .counter{font-size:12px;white-space:nowrap;border-top:1px solid rgba(255,255,255,.5);padding-top:8px;min-width:72px;text-align:right}
+  section{padding:82px 18px}
+  .section-kicker{font-size:11px;text-transform:uppercase;letter-spacing:.16em;color:var(--moss);margin-bottom:28px}
+  .statement{padding-top:110px;padding-bottom:110px}
+  .statement h2{
+    font-family:Georgia,"Times New Roman",serif;font-weight:400;font-size:clamp(38px,10vw,76px);
+    line-height:1.02;letter-spacing:-.045em;margin:0;max-width:1100px
+  }
+  .statement .ko{font-family:inherit;font-size:clamp(20px,5.4vw,35px);line-height:1.48;letter-spacing:-.03em;margin-top:34px;max-width:850px}
+  .split-image{height:68svh;min-height:480px;position:relative;overflow:hidden}
+  .split-image img{transform:scale(1.02)}
+  .values{background:var(--forest);color:#f4f1e9;padding-top:92px;padding-bottom:95px}
+  .values .section-kicker{color:#a8b3aa}
+  .value{border-top:1px solid rgba(255,255,255,.24);padding:28px 0 30px;display:grid;grid-template-columns:44px 1fr;gap:10px}
+  .value .num{font-size:11px;color:#b9c2ba}
+  .value h3{margin:0 0 8px;font-size:26px;font-weight:500;letter-spacing:-.035em}
+  .value p{margin:0;color:#bbc2bc;font-size:13px;line-height:1.72}
+  .projects{padding-left:0;padding-right:0}
+  .projects-head{padding:0 18px;display:flex;align-items:end;justify-content:space-between;margin-bottom:28px}
+  .projects h2{font-family:Georgia,"Times New Roman",serif;font-size:44px;font-weight:400;letter-spacing:-.04em;margin:0}
+  .link-arrow{font-size:12px;border-bottom:1px solid;padding-bottom:3px}
+  .cards{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 18px 18px;scrollbar-width:none}
+  .cards::-webkit-scrollbar{display:none}
+  .card{flex:0 0 82vw;max-width:520px;scroll-snap-align:start}
+  .card-media{height:55svh;min-height:410px;max-height:680px;overflow:hidden;background:#d8d8d0}
+  .card-meta{display:flex;justify-content:space-between;gap:10px;padding:14px 0 8px;border-bottom:1px solid var(--line)}
+  .card h3{font-size:17px;font-weight:600;margin:0;letter-spacing:-.02em}
+  .card span{font-size:11px;color:#656d67}
+  .about{display:grid;gap:38px;background:#e4e0d6}
+  .about-copy h2{font-family:Georgia,"Times New Roman",serif;font-weight:400;font-size:48px;line-height:.96;letter-spacing:-.045em;margin:0 0 30px}
+  .about-copy p{font-size:14px;line-height:1.75;max-width:620px;margin:0}
+  .about-media{height:54svh;min-height:420px}
+  .stats{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line)}
+  .stat{padding:22px 10px 26px 0;border-bottom:1px solid var(--line)}
+  .stat:nth-child(odd){border-right:1px solid var(--line)}
+  .stat:nth-child(even){padding-left:18px}
+  .stat strong{display:block;font-family:Georgia,serif;font-weight:400;font-size:38px;letter-spacing:-.04em}
+  .stat span{font-size:11px;color:#687069}
+  .contact{background:#101b15;color:#f5f2e9;padding-top:100px;padding-bottom:34px}
+  .contact h2{font-family:Georgia,serif;font-size:clamp(48px,13vw,92px);font-weight:400;line-height:.9;letter-spacing:-.05em;margin:0 0 42px}
+  .contact-grid{border-top:1px solid rgba(255,255,255,.2);padding-top:22px;display:grid;gap:30px;font-size:12px;line-height:1.75;color:#bec6bf}
+  .cta{
+    display:flex;align-items:center;justify-content:space-between;padding:17px 0;
+    color:#fff;border-bottom:1px solid rgba(255,255,255,.35);font-size:16px
+  }
+  .footer{margin-top:80px;display:flex;justify-content:space-between;font-size:10px;color:#818b83}
+  .reveal{opacity:0;transform:translateY(22px);transition:.7s ease}
+  .reveal.on{opacity:1;transform:none}
+  .desktop-nav{display:none}
+  @media(min-width:800px){
+    .topbar{padding:24px 34px}
+    .menu-btn{display:none}
+    .desktop-nav{display:flex;gap:28px;font-size:12px}
+    section{padding-left:34px;padding-right:34px}
+    .hero-copy{left:34px;right:34px;bottom:50px}
+    .about{grid-template-columns:1fr 1.1fr;align-items:start}
+    .about-media{height:70vh}
+    .cards{padding-left:34px;padding-right:34px}
+    .card{flex-basis:42vw}
+    .projects-head{padding:0 34px}
+    .values-inner{display:grid;grid-template-columns:1fr 1.5fr;gap:80px}
+    .contact-grid{grid-template-columns:1.2fr .8fr}
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+  <header class="topbar">
+    <a href="#home" class="brand">STUDIO ID<small>LANDSCAPE ARCHITECTURE</small></a>
+    <nav class="desktop-nav">
+      <a href="#about">ABOUT</a><a href="#projects">PROJECT</a><a href="#contact">CONTACT</a>
+    </nav>
+    <button class="menu-btn" id="menuBtn" aria-label="메뉴 열기"><span></span></button>
+  </header>
+
+  <aside class="menu" id="menu">
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#projects">Project</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="meta">
+      <div>STUDIO ID<br>Landscape Architecture<br>Seoul, Korea</div>
+      <div>hello@studio-id.kr<br>02 000 0000<br>Instagram ↗</div>
+    </div>
+  </aside>
+
+  <main id="home">
+    <section class="hero">
+      <div class="hero-track">
+        <figure class="hero-slide active"><img src="https://cdn.imweb.me/thumbnail/20240108/ae8e38cb07912.jpg" alt="정원 조경 예시"></figure>
+        <figure class="hero-slide"><img src="https://factoryl2023.mycafe24.com/wp-content/uploads/2023/05/Samsungdong25-1024x768.jpg" alt="주거 정원 예시"></figure>
+        <figure class="hero-slide"><img src="https://media.brique.co/2021/11/5cdea6f9-%EC%A4%91%EC%A0%95-2-%EB%B3%B5%EC%82%AC%EB%B3%B8-905x603.jpg" alt="야간 조경 예시"></figure>
+      </div>
+      <div class="hero-copy">
+        <div class="eyebrow">Landscape / Garden / Public Realm</div>
+        <h1>Designing<br><em>living ground.</em></h1>
+        <div class="hero-foot">
+          <p>STUDIO ID는 땅의 기억과 사람의 움직임을 읽고, 시간이 흐를수록 깊어지는 경관을 설계합니다.</p>
+          <div class="counter"><span id="current">01</span> / 03</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="statement reveal">
+      <div class="section-kicker">Our Perspective</div>
+      <h2>We shape landscapes<br>that grow with time.</h2>
+      <p class="ko">좋은 조경은 완성되는 것이 아니라 자라나는 것이라고 생각합니다. STUDIO ID는 장소의 조건을 세심하게 읽고, 식물·재료·사람의 경험이 자연스럽게 이어지는 공간을 만듭니다.</p>
+    </section>
+
+    <div class="split-image">
+      <img src="https://snoopy.archdaily.com/images/archdaily/media/images/58ce/a345/e58e/ceb1/2800/00ae/slideshow/AXIS_3_ENT_garden1.jpg?1489937215=&format=webp&height=1100&width=1600" alt="공간과 식재가 어우러진 조경 예시">
+    </div>
+
+    <section class="values">
+      <div class="values-inner">
+        <div>
+          <div class="section-kicker">Studio Manifesto</div>
+        </div>
+        <div>
+          <article class="value reveal"><div class="num">01</div><div><h3>장소를 읽는 설계</h3><p>대지의 높낮이, 햇빛, 바람, 기존 수목과 주변의 삶을 먼저 관찰합니다. 프로젝트의 답은 장소 안에서 시작됩니다.</p></div></article>
+          <article class="value reveal"><div class="num">02</div><div><h3>시간을 품는 식재</h3><p>준공 순간의 이미지보다 계절과 생장의 변화를 고려합니다. 시간이 지날수록 자연스러워지는 식재를 지향합니다.</p></div></article>
+          <article class="value reveal"><div class="num">03</div><div><h3>절제된 디테일</h3><p>재료의 수를 줄이고 접점의 완성도를 높입니다. 과한 장식보다 오래 쓰이는 구조와 촉감을 중요하게 생각합니다.</p></div></article>
+          <article class="value reveal"><div class="num">04</div><div><h3>설계와 현장의 연결</h3><p>도면이 현장에서 살아 움직일 수 있도록 시공성과 유지관리까지 함께 검토하며 프로젝트를 완성합니다.</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="projects" id="projects">
+      <div class="projects-head">
+        <div><div class="section-kicker">Selected Works</div><h2>Projects</h2></div>
+        <a class="link-arrow" href="#projects">VIEW ALL →</a>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <div class="card-media"><img src="https://static.tildacdn.com/tild3364-3034-4263-b339-663230353030/efcfbc99abcd11ef9533.jpeg" alt="프로젝트 이미지"></div>
+          <div class="card-meta"><h3>Forest Courtyard</h3><span>Residential · 2026</span></div>
+        </article>
+        <article class="card">
+          <div class="card-media"><img src="https://miro.medium.com/v2/resize%3Afit%3A1600/1%2A6T8Iglk4SQaKvi7qhtTSww.png" alt="프로젝트 이미지"></div>
+          <div class="card-meta"><h3>Water Garden</h3><span>Office · 2025</span></div>
+        </article>
+        <article class="card">
+          <div class="card-media"><img src="https://factoryl2023.mycafe24.com/wp-content/uploads/2023/05/Samsungdong25-1024x768.jpg" alt="프로젝트 이미지"></div>
+          <div class="card-meta"><h3>House in Seongbuk</h3><span>Garden · 2025</span></div>
+        </article>
+        <article class="card">
+          <div class="card-media"><img src="https://media.brique.co/2021/11/5cdea6f9-%EC%A4%91%EC%A0%95-2-%EB%B3%B5%EC%82%AC%EB%B3%B8-905x603.jpg" alt="프로젝트 이미지"></div>
+          <div class="card-meta"><h3>Seasonal Yard</h3><span>Hospitality · 2024</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="about" id="about">
+      <div class="about-copy reveal">
+        <div class="section-kicker">About Studio ID</div>
+        <h2>Landscape<br>as identity.</h2>
+        <p>STUDIO ID는 조경설계와 정원, 건축 외부공간, 공공공간을 다루는 디자인 스튜디오입니다. 프로젝트마다 고유한 정체성(Identity)을 발견하고, 그것을 자연과 사람의 경험으로 번역합니다.</p>
+        <div class="stats" style="margin-top:48px">
+          <div class="stat"><strong>28+</strong><span>Completed Projects</span></div>
+          <div class="stat"><strong>2018</strong><span>Studio Founded</span></div>
+          <div class="stat"><strong>06</strong><span>Designers</span></div>
+          <div class="stat"><strong>09</strong><span>Awards & Features</span></div>
+        </div>
+      </div>
+      <div class="about-media"><img src="https://cdn.imweb.me/thumbnail/20240108/ae8e38cb07912.jpg" alt="STUDIO ID 분위기 이미지"></div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="section-kicker">Start a Project</div>
+      <h2>Let’s make<br>the ground alive.</h2>
+      <div class="contact-grid">
+        <div>
+          <a class="cta" href="mailto:hello@studio-id.kr"><span>프로젝트 문의하기</span><span>↗</span></a>
+          <a class="cta" href="tel:+8220000000"><span>02 000 0000</span><span>↗</span></a>
+        </div>
+        <div>
+          STUDIO ID Landscape Architecture<br>
+          서울특별시 ○○구 ○○로 00, 3F<br><br>
+          Instagram @studioid.landscape<br>
+          hello@studio-id.kr
+        </div>
+      </div>
+      <div class="footer"><span>© 2026 STUDIO ID</span><span>LANDSCAPE ARCHITECTURE</span></div>
+    </section>
+  </main>
+</div>
+
+<script>
+const btn=document.getElementById('menuBtn'), menu=document.getElementById('menu');
+btn.addEventListener('click',()=>{btn.classList.toggle('open');menu.classList.toggle('open')});
+menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{btn.classList.remove('open');menu.classList.remove('open')}));
+
+const slides=[...document.querySelectorAll('.hero-slide')], current=document.getElementById('current');
+let i=0;
+setInterval(()=>{slides[i].classList.remove('active');i=(i+1)%slides.length;slides[i].classList.add('active');current.textContent=String(i+1).padStart(2,'0')},4200);
+
+const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on')}),{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+
+<!--
+STUDIO ID 모바일 홈페이지 컨셉 시안
+- 참고 구조: 대형 비주얼 → 철학/매니페스토 → 프로젝트 → 회사소개/수치 → 연락처
+- 본 문구/프로젝트명/수치는 모두 시안용 예시입니다.
+- 외부 사진은 내부 검토용 플레이스홀더이며 실제 공개 사이트 제작 시 STUDIO ID 보유 사진으로 교체하십시오.
+-->
+</body>
+</html>
